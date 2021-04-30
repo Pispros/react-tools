@@ -1,0 +1,165 @@
+#!/bin/bash
+
+option=$1
+element_name=$2 # Component name passed as first parameter while calling the script*
+
+_showOptions()
+{
+	echo
+	echo "---------- Help -----------"
+	echo
+	echo "-c to generate a component"
+	echo "-s to generate a service"
+	echo "-p to generate a page"
+	echo
+}
+
+_testIfFileExist()
+{
+	filelist=`ls`
+	for filename in $filelist 
+	do
+		if [[ $1 == $filename ]]
+		then
+			return 1
+		fi
+	done
+	return 0
+}
+
+_makeComponent()
+{
+	component_name=$1
+	mkdir $component_name
+
+	cd $component_name
+
+	cp ~/reactComponentSample/sample.js ${component_name}'.js'
+
+	touch ${component_name}'.scss'
+
+	sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
+
+	echo "--------------------------------"
+	echo "Component generated successfully"
+	echo "--------------------------------"
+
+	cd ..
+}
+
+_makePage()
+{
+	page_name=$1
+	mkdir $page_name
+
+	cd $page_name
+
+	cp ~/reactComponentSample/sample.js ${page_name}'.js'
+
+	touch ${page_name}'.scss'
+
+	sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+
+	echo "--------------------------------"
+	echo "Page generated successfully"
+	echo "--------------------------------"
+
+	cd ..
+
+	cd ..
+
+	sed -i '3 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+
+	cd pages
+}
+
+
+_generateComponent()
+{
+	component_name=$1
+
+	_testIfFileExist "$component_name"
+
+	doFileExist=$?
+
+	if [[ $doFileExist -eq 1 ]]
+	then
+		echo "Component already generated. Do you want to overwrite it ? Y(es)/N(o)"
+
+		read response
+
+		if [[ $response == 'Y' ]]
+			 then
+				rm -r ${component_name}
+
+				_makeComponent "$component_name"
+
+				return
+			 else
+
+			 	echo "*********************************"
+				echo "Component not overwritten"
+				echo "*********************************"
+
+				return
+		fi
+
+		
+	fi
+
+	_makeComponent "$component_name"
+}
+
+generatePage()
+{
+	page_name=$1
+
+	_testIfFileExist "$page_name"
+
+	doFileExist=$?
+
+	if [[ $doFileExist -eq 1 ]]
+	then
+		echo "Page already generated. Do you want to overwrite it ? Y(es)/N(o)"
+
+		read response
+
+		if [[ $response == 'Y' ]]
+			 then
+				rm -r ${page_name}
+
+				_makePage "$page_name"
+
+				return
+			 else
+
+			 	echo "*********************************"
+				echo "Page not overwritten"
+				echo "*********************************"
+
+				return
+		fi
+
+		
+	fi
+
+	_makePage "$page_name"
+}
+
+
+#echo $component_name
+
+case $option in
+
+	-c) generateComponent "$element_name" ;;
+
+	-p) generatePage "$element_name" ;;
+	
+	*) _showOptions ;;
+esac
+
+
+
+
+
+
