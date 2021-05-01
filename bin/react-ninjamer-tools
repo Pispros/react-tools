@@ -6,11 +6,17 @@ element_name=$2 # Component name passed as first parameter while calling the scr
 _showOptions()
 {
 	echo
-	echo "---------- Help -----------"
+	echo "----------------------- HELP -------------------------"
 	echo
-	echo "-c to generate a component"
-	echo "-s to generate a service"
-	echo "-p to generate a page"
+	echo "synthax : react-ninjamer-tools <option> <element_name>"
+	echo
+	echo "------------------------------------------- Options : "
+	echo
+	echo "-c ----------> generate a component"
+	echo
+	echo "-s ----------> generate a service"
+	echo
+	echo "-p ----------> generate a page"
 	echo
 }
 
@@ -78,72 +84,91 @@ _generateComponent()
 {
 	component_name=$1
 
-	_testIfFileExist "$component_name"
 
-	doFileExist=$?
+	if [[ -z $component_name ]] 
+		then
+			echo 
+			echo "Component name missing"
+			echo
+		else
+			_testIfFileExist "$component_name"
 
-	if [[ $doFileExist -eq 1 ]]
-	then
-		echo "Component already generated. Do you want to overwrite it ? Y(es)/N(o)"
+			doFileExist=$?
 
-		read response
+			if [[ $doFileExist -eq 1 ]]
+			then
+				echo "Component already generated. Do you want to overwrite it ? Y(es)/N(o)"
 
-		if [[ $response == 'Y' ]]
-			 then
-				rm -r ${component_name}
+				read response
 
-				_makeComponent "$component_name"
+				if [[ $response == 'Y' ]]
+					 then
+						rm -r ${component_name}
 
-				return
-			 else
+						_makeComponent "$component_name"
 
-			 	echo "*********************************"
-				echo "Component not overwritten"
-				echo "*********************************"
+						return
+					 else
 
-				return
-		fi
+					 	echo "*********************************"
+						echo "Component not overwritten"
+						echo "*********************************"
 
-		
+						return
+				fi
+
+			
+			fi
+
+			_makeComponent "$component_name"
+
 	fi
+	
 
-	_makeComponent "$component_name"
+	
 }
 
 _generatePage()
 {
 	page_name=$1
 
-	_testIfFileExist "$page_name"
-
-	doFileExist=$?
-
-	if [[ $doFileExist -eq 1 ]]
+	if [[ -z "$page_name" ]]
 	then
-		echo "Page already generated. Do you want to overwrite it ? Y(es)/N(o)"
+		echo
+		echo "Page name missing"
+		echo
+	else
+		_testIfFileExist "$page_name"
 
-		read response
+		doFileExist=$?
 
-		if [[ $response == 'Y' ]]
-			 then
-				rm -r ${page_name}
+		if [[ $doFileExist -eq 1 ]]
+		then
+			echo "Page already generated. Do you want to overwrite it ? Y(es)/N(o)"
 
-				_makePage "$page_name"
+			read response
 
-				return
-			 else
+			if [[ $response == 'Y' ]]
+				 then
+					rm -r ${page_name}
 
-			 	echo "*********************************"
-				echo "Page not overwritten"
-				echo "*********************************"
+					_makePage "$page_name"
 
-				return
+					return
+				 else
+
+				 	echo "*********************************"
+					echo "Page not overwritten"
+					echo "*********************************"
+
+					return
+			fi
+
+			
 		fi
 
-		
+		_makePage "$page_name"
 	fi
-
-	_makePage "$page_name"
 }
 
 

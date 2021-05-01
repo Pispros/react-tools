@@ -2,10 +2,13 @@
 
 <img src="logo.jpg"></img>
 
-##  bash react-ninjamer-tools -c <Component_name>
+## sudo bash install.sh ---> Install the tools
 
-##  bash react-ninjamer-tools -p <Page_name>
+##  react-ninjamer-tools -c <Component_name>
+
+##  react-ninjamer-tools -p <Page_name>
 
 Imports automatically the page in the App.js
 
-##  bash react-ninjamer-tools -s <Service_name>
+##  react-ninjamer-tools -s <Service_name>
+
