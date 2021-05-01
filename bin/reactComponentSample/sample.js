@@ -5,7 +5,9 @@ import './sample.scss'
 const sample = () => 
 {
 	return(
-		<div>sample works</div>
+		<div>
+			sample works
+		</div>
 	)
 }
 
