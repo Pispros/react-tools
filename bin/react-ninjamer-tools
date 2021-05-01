@@ -2,22 +2,61 @@
 
 option=$1
 element_name=$2 # Component name passed as first parameter while calling the script*
+another_name=$3
 
 _showOptions()
 {
 	echo
 	echo "----------------------- HELP -------------------------"
 	echo
-	echo "synthax : react-ninjamer-tools <option> <element_name>"
+	echo "synthax : react-ninjamer-tools <option> <element_name> [<element_name>]"
 	echo
 	echo "------------------------------------------- Options : "
 	echo
-	echo "-c ----------> generate a component"
+	echo "--init ----------> whitout any other parameter to init ninjamer-tools in your project !"
 	echo
-	echo "-s ----------> generate a service"
+	echo "-c ----------> generate a component. Make sure you are in 'components' folder"
 	echo
-	echo "-p ----------> generate a page"
+	echo "-s ----------> generate a service. Make sure you are in 'services' folder"
 	echo
+	echo "-p ----------> generate a page. Make sure you are in 'pages' folder"
+	echo
+	echo "-i ----------> import component in a page. Make sure you are in 'components' folder"
+	echo
+}
+
+_initTools()
+{
+	_testIfFileExist "components"
+
+	result="$?"
+
+	if [[ $result == 0 ]] 
+	then
+		mkdir components
+	fi
+
+	_testIfFileExist "pages"
+
+	result="$?"
+
+	if [[ $result == 0 ]] 
+	then
+		mkdir pages
+	fi
+
+	_testIfFileExist "services"
+
+	result="$?"
+
+	if [[ $result == 0 ]] 
+	then
+		mkdir services
+	fi
+
+	echo "--------------------------------------"
+	echo "react-ninjamer-tools working properly"
+	echo "--------------------------------------"
 }
 
 _testIfFileExist()
@@ -171,14 +210,34 @@ _generatePage()
 	fi
 }
 
+_importComponentInPage()
+{
+
+	component_name="$1"
+
+	page_name="$2"
+
+	if [[ -z $component_name || -z $page_name ]] 
+		then
+			echo "missing Argument(s)"
+		else
+			sed -i '3 a import '${component_name}' from "../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+	fi
+}
 
 #echo $component_name
 
 case $option in
 
+	--init) _initTools ;;
+
+	--help) _showOptions ;;
+
 	-c) _generateComponent "$element_name" ;;
 
 	-p) _generatePage "$element_name" ;;
+
+	-i) _importComponentInPage "$element_name" "$another_name";;
 	
 	*) _showOptions ;;
 esac
