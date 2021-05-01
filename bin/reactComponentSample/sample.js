@@ -6,6 +6,7 @@ const sample = () =>
 {
 	return(
 		<div>
+			<div></div>
 			sample works
 		</div>
 	)
