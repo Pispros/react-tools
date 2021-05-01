@@ -110,7 +110,7 @@ _generateComponent()
 	_makeComponent "$component_name"
 }
 
-generatePage()
+_generatePage()
 {
 	page_name=$1
 
@@ -151,9 +151,9 @@ generatePage()
 
 case $option in
 
-	-c) generateComponent "$element_name" ;;
+	-c) _generateComponent "$element_name" ;;
 
-	-p) generatePage "$element_name" ;;
+	-p) _generatePage "$element_name" ;;
 	
 	*) _showOptions ;;
 esac

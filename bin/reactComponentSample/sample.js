@@ -4,7 +4,9 @@ import './sample.scss'
 
 const sample = () => 
 {
-	return
+	return(
+		<div>sample works</div>
+	)
 }
 
 export default sample
