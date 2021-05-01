@@ -1,12 +1,10 @@
 
-import './sample.css'
+import './sample.scss'
 
 
 const sample = () => 
 {
-	return(
-
-	)
+	return
 }
 
 export default sample
