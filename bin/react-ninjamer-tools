@@ -131,7 +131,7 @@ _generateComponent()
 	if [[ -z $component_name ]] 
 		then
 			echo 
-			echo "Component name missing"
+			echo "----> Missing component name"
 			echo
 		else
 			_testIfFileExist "$component_name"
@@ -178,7 +178,7 @@ _generatePage()
 	if [[ -z "$page_name" ]]
 	then
 		echo
-		echo "Page name missing"
+		echo "----> Missing page name"
 		echo
 	else
 		_testIfFileExist "$page_name"
