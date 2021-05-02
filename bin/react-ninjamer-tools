@@ -81,9 +81,11 @@ _makeComponent()
 
 	cp ~/reactComponentSample/sample.js ${component_name}'.js'
 
-	touch ${component_name}'.scss'
+	cp ~/reactComponentSample/sample.scss ${component_name}'.scss'
 
 	sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
+
+	sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
 
 	echo "--------------------------------"
 	echo "Component generated successfully"
@@ -101,9 +103,11 @@ _makePage()
 
 	cp ~/reactComponentSample/sample.js ${page_name}'.js'
 
-	touch ${page_name}'.scss'
+	cp ~/reactComponentSample/sample.scss ${page_name}'.scss'
 
 	sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+
+	sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
 
 	echo "--------------------------------"
 	echo "Page generated successfully"

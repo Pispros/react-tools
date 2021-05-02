@@ -32,7 +32,7 @@ result=$?
 
 if [[ $result == 1 ]] 
 then
-	rm -r ~/reactComponentSample
+	sudo rm -r ~/reactComponentSample
 fi
 
 cp -fr bin/reactComponentSample ~/
@@ -49,5 +49,18 @@ fi
 sudo cp  ./bin/react-ninjamer-tools /usr/local/bin	
 
 sudo chmod 755 /usr/local/bin/react-ninjamer-tools
+
+echo 
+echo "-------------------------------------------"
+echo "           React Ninjamer Tools            "
+echo "-------------------------------------------"
+echo 
+
+echo "   Installation successful    "
+echo
+echo "  ---------------------> run react-ninjamer-tools for help !  "
+echo
+echo "  Have a good time hacking my ninja !     "
+echo
 
 #export PATH=$PATH:~/.react-ninjamer-tools

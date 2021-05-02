@@ -5,7 +5,7 @@ import './sample.scss'
 const sample = () => 
 {
 	return(
-		<div>
+		<div className="sampleWrapper">
 			<div></div>
 			sample works
 		</div>
