@@ -1,8 +1,8 @@
 #!/bin/bash
 
 option=$1
-element_name=$2 # Component name passed as first parameter while calling the script*
-another_name=$3
+element_name=$2 # Component name passed as first parameter while calling the script* // First parameter
+another_name=$3 # Second parameter
 
 _showOptions()
 {
@@ -11,17 +11,20 @@ _showOptions()
 	echo
 	echo "synthax : react-ninjamer-tools <option> <element_name> [<element_name>]"
 	echo
+	echo
+	echo "Attention : Make sure you are in your root folder and you do not have unsaved code a file you want to touch with the tool !"
+	echo
 	echo "------------------------------------------- Options : "
 	echo
 	echo "--init ----------> without any other parameter to init ninjamer-tools in your project !"
 	echo
-	echo "-c ----------> generate a component. Make sure you are in 'components' folder"
+	echo "-c ----------> generate a component."
 	echo
-	echo "-s ----------> generate a service. Make sure you are in 'services' folder"
+	echo "-s ----------> generate a service."
 	echo
-	echo "-p ----------> generate a page. Make sure you are in 'pages' folder"
+	echo "-p ----------> generate a page."
 	echo
-	echo "-i ----------> import component in a page. Make sure you are in 'components' folder"
+	echo "-i ----------> import component in a page.[... -i component_name page_name]" 
 	echo
 }
 
@@ -61,19 +64,35 @@ _initTools()
 
 _testIfFileExist()
 {
+	if [[ $2 == "components" ]] 
+	then
+		cd src/components
+	fi
+
+	if [[ $2 == "pages" ]] 
+	then
+		cd src/pages
+	fi
+
 	filelist=`ls`
 	for filename in $filelist 
 	do
 		if [[ $1 == $filename ]]
 		then
+			cd ..
+			cd ..
 			return 1
 		fi
 	done
+	cd .. 
+	cd ..
 	return 0
 }
 
 _makeComponent()
 {
+	cd src/components
+
 	component_name=$1
 	mkdir $component_name
 
@@ -87,6 +106,20 @@ _makeComponent()
 
 	sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
 
+	echo
+	echo "Do you want to import it in a page ? [Y]es or [N]o"
+	echo
+	read response
+
+	if [[ $response == 'Y' ]] 
+	then
+		echo 
+		echo 'Page name ?'
+		echo
+		read page_name
+		_importComponentInPageF "$component_name" "$page_name"
+	fi
+
 	echo "--------------------------------"
 	echo "Component generated successfully"
 	echo "--------------------------------"
@@ -96,6 +129,8 @@ _makeComponent()
 
 _makePage()
 {
+	cd src/pages
+
 	page_name=$1
 	mkdir $page_name
 
@@ -117,9 +152,9 @@ _makePage()
 
 	cd ..
 
-	sed -i '3 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+	sed -i '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
 
-	cd pages
+	cd ..
 }
 
 
@@ -127,6 +162,7 @@ _generateComponent()
 {
 	component_name=$1
 
+	path="components"
 
 	if [[ -z $component_name ]] 
 		then
@@ -134,7 +170,7 @@ _generateComponent()
 			echo "----> Missing component name"
 			echo
 		else
-			_testIfFileExist "$component_name"
+			_testIfFileExist "$component_name" "$path"
 
 			doFileExist=$?
 
@@ -146,7 +182,12 @@ _generateComponent()
 
 				if [[ $response == 'Y' ]]
 					 then
+					 	cd src/components
+
 						rm -r ${component_name}
+
+						cd .. 
+						cd ..
 
 						_makeComponent "$component_name"
 
@@ -175,13 +216,16 @@ _generatePage()
 {
 	page_name=$1
 
+	path="pages"
+
 	if [[ -z "$page_name" ]]
 	then
 		echo
 		echo "----> Missing page name"
 		echo
 	else
-		_testIfFileExist "$page_name"
+		_testIfFileExist "$page_name" "$path"
+		
 
 		doFileExist=$?
 
@@ -193,9 +237,16 @@ _generatePage()
 
 			if [[ $response == 'Y' ]]
 				 then
+				 	cd src/pages
+
 					rm -r ${page_name}
 
+					cd .. 
+					cd ..
+
 					_makePage "$page_name"
+
+					
 
 					return
 				 else
@@ -214,6 +265,30 @@ _generatePage()
 	fi
 }
 
+_importComponentInPageF()
+{
+
+	component_name="$1"
+
+	page_name="$2"
+
+	if [[ -z $component_name || -z $page_name ]] 
+		then
+			echo "missing Argument(s)"
+		else
+			
+			cd ../
+
+			ls
+
+			sed -i '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+
+			cd ..
+
+			cd ..
+	fi
+}
+
 _importComponentInPage()
 {
 
@@ -225,7 +300,16 @@ _importComponentInPage()
 		then
 			echo "missing Argument(s)"
 		else
-			sed -i '3 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+			
+			cd src/components
+
+			ls
+
+			sed -i '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+
+			cd ..
+
+			cd ..
 	fi
 }
 
