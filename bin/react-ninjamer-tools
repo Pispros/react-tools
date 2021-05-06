@@ -30,6 +30,8 @@ _showOptions()
 
 _initTools()
 {
+	cd src
+	
 	_testIfFileExist "components"
 
 	result="$?"
@@ -98,9 +100,9 @@ _makeComponent()
 
 	cd $component_name
 
-	cp ~/reactComponentSample/sample.js ${component_name}'.js'
+	cp ~/.reactComponentSample/sample.js ${component_name}'.js'
 
-	cp ~/reactComponentSample/sample.scss ${component_name}'.scss'
+	cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
 
 	sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
 
@@ -136,9 +138,9 @@ _makePage()
 
 	cd $page_name
 
-	cp ~/reactComponentSample/sample.js ${page_name}'.js'
+	cp ~/.reactComponentSample/sample.js ${page_name}'.js'
 
-	cp ~/reactComponentSample/sample.scss ${page_name}'.scss'
+	cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
 
 	sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
 

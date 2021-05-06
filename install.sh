@@ -26,16 +26,16 @@ _testIfFileToolExist()
 	return 0
 }
 
-_testIfFileExist "reactComponentSample"
+_testIfFileExist ".reactComponentSample"
 
 result=$?
 
 if [[ $result == 1 ]] 
 then
-	sudo rm -r ~/reactComponentSample
+	sudo rm -r ~/.reactComponentSample
 fi
 
-cp -fr bin/reactComponentSample ~/
+cp -fr bin/reactComponentSample ~/.reactComponentSample
 
 _testIfFileToolExist "react-ninjamer-tools"
 
