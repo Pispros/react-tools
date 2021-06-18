@@ -4,6 +4,9 @@ option=$1
 element_name=$2 # Component name passed as first parameter while calling the script* // First parameter
 another_name=$3 # Second parameter
 
+
+############################################ Utility options
+
 _showOptions()
 {
 	echo
@@ -16,13 +19,17 @@ _showOptions()
 	echo
 	echo "------------------------------------------- Options : "
 	echo
-	echo "--init ----------> without any other parameter to init ninjamer-tools in your project !"
+	echo "--init ----------> without any other parameter to init ninjamer-tools in your project ! It comes with react-redux structure"
 	echo
 	echo "-c ----------> generate a component."
 	echo
-	echo "-s ----------> generate a service."
+	echo "-r ----------> generate a reducer."
 	echo
 	echo "-p ----------> generate a page."
+	echo
+	echo "-const ----------> generate a constant file" 
+	echo
+	echo "-a ----------> generate an actions file" 
 	echo
 	echo "-i ----------> import component in a page.[... -i component_name page_name]" 
 	echo
@@ -59,8 +66,43 @@ _initTools()
 		mkdir services
 	fi
 
+	_testIfFileExist "constants"
+
+	result="$?"
+
+	if [[ $result == 0 ]] 
+	then
+		mkdir constants
+	fi
+
+	_testIfFileExist "actions"
+
+	result="$?"
+
+	if [[ $result == 0 ]] 
+	then
+		mkdir actions
+	fi
+
+	_testIfFileExist "reducers"
+
+	result="$?"
+
+	if [[ $result == 0 ]] 
+	then
+		mkdir reducers
+	fi
+
+	npm install --save sass
+	npm install --save redux
+	npm install --save react-redux
+
+	sudo cp -f ~/.reactComponentSample/index.js .
+
+	sudo cp -f ~/.reactComponentSample/reducersIndex.js ./reducers/index.js
+
 	echo "--------------------------------------"
-	echo "react-ninjamer-tools working properly"
+	echo "react-ninjamer-tools working properly with redux logic"
 	echo "--------------------------------------"
 }
 
@@ -74,6 +116,11 @@ _testIfFileExist()
 	if [[ $2 == "pages" ]] 
 	then
 		cd src/pages
+	fi
+
+	if [[ $2 == "actions" ]] 
+	then
+		cd src/actions
 	fi
 
 	filelist=`ls`
@@ -90,6 +137,8 @@ _testIfFileExist()
 	cd ..
 	return 0
 }
+
+######################################################### Components Section
 
 _makeComponent()
 {
@@ -128,37 +177,6 @@ _makeComponent()
 
 	cd ..
 }
-
-_makePage()
-{
-	cd src/pages
-
-	page_name=$1
-	mkdir $page_name
-
-	cd $page_name
-
-	cp ~/.reactComponentSample/sample.js ${page_name}'.js'
-
-	cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
-
-	sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
-
-	sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
-
-	echo "--------------------------------"
-	echo "Page generated successfully"
-	echo "--------------------------------"
-
-	cd ..
-
-	cd ..
-
-	sed -i '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
-
-	cd ..
-}
-
 
 _generateComponent()
 {
@@ -214,6 +232,41 @@ _generateComponent()
 	
 }
 
+
+######################################################### Pages Section
+
+_makePage()
+{
+	cd src/pages
+
+	page_name=$1
+	mkdir $page_name
+
+	cd $page_name
+
+	cp ~/.reactComponentSample/sample.js ${page_name}'.js'
+
+	cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
+
+	sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+
+	sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+
+	echo "--------------------------------"
+	echo "Page generated successfully"
+	echo "--------------------------------"
+
+	cd ..
+
+	cd ..
+
+	sed -i '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+
+	cd ..
+}
+
+
+
 _generatePage()
 {
 	page_name=$1
@@ -267,6 +320,9 @@ _generatePage()
 	fi
 }
 
+######################################################### Imports Section
+
+
 _importComponentInPageF()
 {
 
@@ -315,6 +371,133 @@ _importComponentInPage()
 	fi
 }
 
+######################################################### Constants Section
+
+_generateConstant()
+{
+	constant_file_name="$1"
+
+	cd src/constants
+
+	_testIfFileExist "${constant_file_name}.types.js" "$types"
+
+			doFileExist=$?
+
+			if [[ $doFileExist -eq 1 ]]
+			then
+				echo "types file already generated. Do you want to overwrite it ? Y(es)/N(o)"
+
+				read response
+
+				if [[ $response == 'Y' ]]
+					 then
+
+					 	cd src/constants
+
+						rm -r ${constant_file_name}.types.js
+
+						touch $constant_file_name.types.js 
+
+						cd ..
+						cd ..
+
+						return
+					 else
+
+					 	echo "*********************************"
+						echo "Types files not overwritten"
+						echo "*********************************"
+
+						return
+				fi
+
+			
+			fi
+
+	touch $constant_file_name.types.js 
+
+	cd ..
+	cd ..
+}
+
+######################################################### Actions Section
+
+_makeAction()
+{
+	cd src/actions
+
+	action_file_name=$1
+	
+	cp ~/.reactComponentSample/reactComponentSample/sample.actions.js ${action_file_name}'.actions.js'
+
+	sed -i 's/sample/'${action_file_name}'/' ${action_file_name}'.actions.js'
+
+	echo "--------------------------------"
+	echo "Actions File generated successfully"
+	echo "--------------------------------"
+
+	cd ..
+	cd ..
+}
+
+_generateAction()
+{
+	action_file_name="$1"
+
+	cd src/actions
+
+	if [[ -z $action_file_name ]] 
+		then
+			echo 
+			echo "----> Missing actions file name"
+			echo
+		else
+			_testIfFileExist "${action_file_name}.actions.js" "$actions"
+
+			doFileExist=$?
+
+			if [[ $doFileExist -eq 1 ]]
+			then
+				echo "Actions files already generated. Do you want to overwrite it ? Y(es)/N(o)"
+
+				read response
+
+				if [[ $response == 'Y' ]]
+					 then
+
+					 	cd src/actions
+
+						rm -r ${action_file_name}.actions.js
+
+						_makeAction "$action_file_name"
+
+						cd ..
+						cd ..
+
+						return
+					 else
+
+					 	echo "*********************************"
+						echo "Actions files not overwritten"
+						echo "*********************************"
+
+						return
+				fi
+
+			
+			fi
+
+			_makeAction "$action_file_name"
+
+	fi
+
+	cd ..
+	cd ..
+}
+
+######################################################### Reducers Section
+
+
 #echo $component_name
 
 case $option in
@@ -328,6 +511,12 @@ case $option in
 	-p) _generatePage "$element_name" ;;
 
 	-i) _importComponentInPage "$element_name" "$another_name";;
+
+	-const) _generateConstant "$element_name" ;;
+
+	-a) _generateAction "$element_name" ;;
+
+	-r) _importComponentInPage "$element_name" "$another_name";;
 	
 	*) _showOptions ;;
 esac
