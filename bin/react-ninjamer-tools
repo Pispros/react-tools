@@ -98,7 +98,7 @@ _initTools()
 	sudo npm install --save redux
 	sudo npm install --save react-redux
 
-	sudo cp -f ~/.reactComponentSample/reactComponentSample/index.js ./App.js
+	sudo cp -f ~/.reactComponentSample/reactComponentSample/index.js .
 
 	sudo cp -f ~/.reactComponentSample/reactComponentSample/reducersIndex.js ./reducers/index.js
 
