@@ -39,16 +39,17 @@ _initTools()
 {
 	cd src
 	
-	_testIfFileExist "components"
+	_testIfFileExistInInit "components"
 
 	result="$?"
 
 	if [[ $result == 0 ]] 
 	then
+		pwd
 		mkdir components
 	fi
 
-	_testIfFileExist "pages"
+	_testIfFileExistInInit "pages"
 
 	result="$?"
 
@@ -57,7 +58,7 @@ _initTools()
 		mkdir pages
 	fi
 
-	_testIfFileExist "services"
+	_testIfFileExistInInit "services"
 
 	result="$?"
 
@@ -66,7 +67,7 @@ _initTools()
 		mkdir services
 	fi
 
-	_testIfFileExist "constants"
+	_testIfFileExistInInit "constants"
 
 	result="$?"
 
@@ -75,7 +76,7 @@ _initTools()
 		mkdir constants
 	fi
 
-	_testIfFileExist "actions"
+	_testIfFileExistInInit "actions"
 
 	result="$?"
 
@@ -84,7 +85,7 @@ _initTools()
 		mkdir actions
 	fi
 
-	_testIfFileExist "reducers"
+	_testIfFileExistInInit "reducers"
 
 	result="$?"
 
@@ -93,13 +94,13 @@ _initTools()
 		mkdir reducers
 	fi
 
-	npm install --save sass
-	npm install --save redux
-	npm install --save react-redux
+	sudo npm install --save sass
+	sudo npm install --save redux
+	sudo npm install --save react-redux
 
-	sudo cp -f ~/.reactComponentSample/index.js .
+	sudo cp -f ~/.reactComponentSample/reactComponentSample/index.js ./App.js
 
-	sudo cp -f ~/.reactComponentSample/reducersIndex.js ./reducers/index.js
+	sudo cp -f ~/.reactComponentSample/reactComponentSample/reducersIndex.js ./reducers/index.js
 
 	echo "--------------------------------------"
 	echo "react-ninjamer-tools working properly with redux logic"
@@ -135,6 +136,20 @@ _testIfFileExist()
 	done
 	cd .. 
 	cd ..
+	return 0
+}
+
+_testIfFileExistInInit()
+{
+	filelist=`ls`
+	for filename in $filelist 
+	do
+		if [[ $1 == $filename ]]
+		then
+			return 1
+		fi
+	done
+	
 	return 0
 }
 
