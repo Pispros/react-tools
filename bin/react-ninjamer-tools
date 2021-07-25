@@ -94,6 +94,15 @@ _initTools()
 		mkdir reducers
 	fi
 
+	_testIfFileExistInInit "containers"
+
+	result="$?"
+
+	if [[ $result == 0 ]] 
+	then
+		mkdir containers
+	fi
+
 	sudo npm install --save sass
 	sudo npm install --save redux
 	sudo npm install --save react-redux
@@ -127,6 +136,12 @@ _testIfFileExist()
 	if [[ $2 == "constans" ]] 
 	then
 		cd src/constants
+	fi
+
+	if [[ $2 == "reducers" ]] 
+	then
+		pwd
+		cd src/reducers
 	fi
 
 	filelist=`ls`
@@ -405,7 +420,7 @@ _generateConstant()
 
 	if [[ $doFileExist -eq 1 ]]
 	then
-		echo "Constant file already generated. Do you want to overwrite it ? Y(es)/N(o)"
+		echo "Constants file already generated. Do you want to overwrite it ? Y(es)/N(o)"
 
 		read response
 
@@ -425,7 +440,7 @@ _generateConstant()
 			 else
 
 			 	echo "*********************************"
-				echo "Types files not overwritten"
+				echo "Constants file not overwritten"
 				echo "*********************************"
 
 				return
@@ -471,7 +486,7 @@ _generateAction()
 			echo "----> Missing actions file name"
 			echo
 		else
-			_testIfFileExist "${action_file_name}.actions.js" "$actions"
+			_testIfFileExist "${action_file_name}.actions.js" "actions"
 
 			doFileExist=$?
 
@@ -516,8 +531,69 @@ _generateAction()
 
 ######################################################### Reducers Section
 
+_generateReducer()
+{
+	reducer_file_name="$1"
+
+	if [[ -z $reducer_file_name ]] 
+		then
+			echo 
+			echo "----> Missing reducer file name"
+			echo
+		else
+			_testIfFileExist "${reducer_file_name}.reducer.js" "reducers"
+
+			doFileExist=$?
+
+			if [[ $doFileExist -eq 1 ]]
+			then
+				echo "Reducers file already generated. Do you want to overwrite it ? Y(es)/N(o)"
+
+				read response
+
+				if [[ $response == 'Y' ]]
+					 then
+
+					 	cd src/reducers
+
+						rm -r ${reducer_file_name}.reducer.js
+
+						touch "${reducer_file_name}.reducer.js"
+
+						echo "import * as ${reducer_file_name}Types from '../constants/${reducer_file_name}.types.js'" | tee ${reducer_file_name}.reducer.js
+
+
+						cd ..
+						cd ..
+
+						return
+					 else
+
+					 	echo "*********************************"
+						echo "Reducers file not overwritten"
+						echo "*********************************"
+
+						return
+				fi
+			
+			fi
+
+			cd src/reducers
+
+			touch "${reducer_file_name}.reducer.js"
+
+			echo "import * as ${reducer_file_name}Types from '../constants/${reducer_file_name}.types.js'" | tee ${reducer_file_name}.reducer.js
+
+	fi
+
+	cd ..
+	cd ..
+}
+
 
 #echo $component_name
+
+####################### Menu
 
 case $option in
 
@@ -535,7 +611,7 @@ case $option in
 
 	-a) _generateAction "$element_name" ;;
 
-	-r) _importComponentInPage "$element_name" "$another_name";;
+	-r) _generateReducer "$element_name";;
 	
 	*) _showOptions ;;
 esac
