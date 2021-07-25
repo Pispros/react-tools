@@ -124,6 +124,11 @@ _testIfFileExist()
 		cd src/actions
 	fi
 
+	if [[ $2 == "constans" ]] 
+	then
+		cd src/constants
+	fi
+
 	filelist=`ls`
 	for filename in $filelist 
 	do
@@ -390,49 +395,48 @@ _importComponentInPage()
 
 _generateConstant()
 {
-	constant_file_name="$1"
-
 	cd src/constants
 
-	_testIfFileExist "${constant_file_name}.types.js" "$types"
+	constant_file_name="$1"
 
-			doFileExist=$?
+	_testIfFileExist "${constant_file_name}.types.js" "constants"
 
-			if [[ $doFileExist -eq 1 ]]
-			then
-				echo "types file already generated. Do you want to overwrite it ? Y(es)/N(o)"
+	doFileExist=$?
 
-				read response
+	if [[ $doFileExist -eq 1 ]]
+	then
+		echo "Constant file already generated. Do you want to overwrite it ? Y(es)/N(o)"
 
-				if [[ $response == 'Y' ]]
-					 then
+		read response
 
-					 	cd src/constants
+		if [[ $response == 'Y' ]]
+			 then
 
-						rm -r ${constant_file_name}.types.js
+			 	cd src/constants
 
-						touch $constant_file_name.types.js 
+				rm -r ${constant_file_name}.types.js
 
-						cd ..
-						cd ..
+				touch $constant_file_name.types.js 
 
-						return
-					 else
+				cd ..
+				cd ..
 
-					 	echo "*********************************"
-						echo "Types files not overwritten"
-						echo "*********************************"
+				return
+			 else
 
-						return
-				fi
+			 	echo "*********************************"
+				echo "Types files not overwritten"
+				echo "*********************************"
 
-			
-			fi
+				return
+		fi
 
-	touch $constant_file_name.types.js 
-
-	cd ..
-	cd ..
+	else
+		cd src/constants
+		touch $constant_file_name.types.js 
+		cd ..
+		cd ..
+	fi
 }
 
 ######################################################### Actions Section
