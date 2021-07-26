@@ -1,6 +1,6 @@
 # REACT DEV TOOLS
 
-<img src="logo.jpg"></img>
+<img src="logoReactNinjamerTools.jpg"></img>
 
 # sudo bash install.sh ---> Install the tools
 
