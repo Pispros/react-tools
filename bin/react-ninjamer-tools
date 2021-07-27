@@ -176,14 +176,6 @@ _makeComponent()
 
 	cd $component_name
 
-	cp ~/.reactComponentSample/sample.js ${component_name}'.js'
-
-	cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
-
-	sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
-
-	sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
-
 	echo
 	echo "Do you want to import it in a page ? [Y]es or [N]o"
 	echo
@@ -196,6 +188,31 @@ _makeComponent()
 		echo
 		read page_name
 		_importComponentInPageF "$component_name" "$page_name"
+	fi
+
+	echo
+	echo "Do you want to connect to the store (redux) ? [Y]es or [N]o"
+	echo
+	read response
+
+	if [[ $response == 'Y' ]] 
+	then
+		cp ~/.reactComponentSample/reactComponentSample/sample.connected.js ${component_name}'.js'
+
+		cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
+
+		sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
+
+		sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
+		
+	else
+		cp ~/.reactComponentSample/sample.js ${component_name}'.js'
+
+		cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
+
+		sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
+
+		sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
 	fi
 
 	echo "--------------------------------"
@@ -271,13 +288,30 @@ _makePage()
 
 	cd $page_name
 
-	cp ~/.reactComponentSample/sample.js ${page_name}'.js'
+	echo
+	echo "Do you want to connect to the store (redux) ? [Y]es or [N]o"
+	echo
+	read response
 
-	cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
+	if [[ $response == 'Y' ]] 
+	then
+		cp ~/.reactComponentSample/reactComponentSample/sample.connected.js ${page_name}'.js'
 
-	sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+		cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
 
-	sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+		sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+
+		sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+		
+	else
+		cp ~/.reactComponentSample/sample.js ${page_name}'.js'
+
+		cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
+
+		sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+
+		sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+	fi
 
 	echo "--------------------------------"
 	echo "Page generated successfully"
