@@ -94,18 +94,10 @@ _initTools()
 		mkdir reducers
 	fi
 
-	_testIfFileExistInInit "containers"
-
-	result="$?"
-
-	if [[ $result == 0 ]] 
-	then
-		mkdir containers
-	fi
-
 	sudo npm install --save sass
 	sudo npm install --save redux
 	sudo npm install --save react-redux
+	sudo npm install --save redux-thunk
 
 	sudo cp -f ~/.reactComponentSample/reactComponentSample/index.js .
 
