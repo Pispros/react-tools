@@ -201,18 +201,41 @@ _makeComponent()
 
 		cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
 
-		sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
+		if [[ "$OSTYPE" == "linux-gnu"* ]]
+		then
+			sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
 
-		sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
+			sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
+		else
+			if [[ "$OSTYPE" == "darwin"* ]]
+			then
+			sed -i '' 's/sample/'${component_name}'/' ${component_name}'.js'
+
+			sed -i '' 's/sample/'${component_name}'/' ${component_name}'.scss'
+			fi
+		fi
+
+		
 		
 	else
 		cp ~/.reactComponentSample/sample.js ${component_name}'.js'
 
 		cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
 
-		sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
+		if [[ "$OSTYPE" == "linux-gnu"* ]]
+		then
+			sed -i 's/sample/'${component_name}'/' ${component_name}'.js'
 
-		sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
+			sed -i 's/sample/'${component_name}'/' ${component_name}'.scss'
+		else
+			if [[ "$OSTYPE" == "darwin"* ]]
+			then
+			sed -i '' 's/sample/'${component_name}'/' ${component_name}'.js'
+
+			sed -i '' 's/sample/'${component_name}'/' ${component_name}'.scss'
+			fi
+		fi
+
 	fi
 
 	echo "--------------------------------"
@@ -299,18 +322,38 @@ _makePage()
 
 		cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
 
-		sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+		if [[ "$OSTYPE" == "linux-gnu"* ]]
+		then
+			sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
 
-		sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+			sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+		else
+			if [[ "$OSTYPE" == "darwin"* ]]
+			then
+			sed -i '' 's/sample/'${page_name}'/' ${page_name}'.js'
+
+			sed -i '' 's/sample/'${page_name}'/' ${page_name}'.scss'
+			fi
+		fi
 		
 	else
 		cp ~/.reactComponentSample/sample.js ${page_name}'.js'
 
 		cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
 
-		sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
+		if [[ "$OSTYPE" == "linux-gnu"* ]]
+		then
+			sed -i 's/sample/'${page_name}'/' ${page_name}'.js'
 
-		sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+			sed -i 's/sample/'${page_name}'/' ${page_name}'.scss'
+		else
+			if [[ "$OSTYPE" == "darwin"* ]]
+			then
+			sed -i '' 's/sample/'${page_name}'/' ${page_name}'.js'
+
+			sed -i '' 's/sample/'${page_name}'/' ${page_name}'.scss'
+			fi
+		fi
 	fi
 
 	echo "--------------------------------"
@@ -321,7 +364,15 @@ _makePage()
 
 	cd ..
 
-	sed -i '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+	if [[ "$OSTYPE" == "linux-gnu"* ]]
+	then
+		sed -i '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+	else
+		if [[ "$OSTYPE" == "darwin"* ]]
+		then
+			sed -i '' '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+		fi
+	fi
 
 	cd ..
 }
@@ -400,7 +451,16 @@ _importComponentInPageF()
 
 			ls
 
-			sed -i '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+			if [[ "$OSTYPE" == "linux-gnu"* ]]
+			then
+				sed -i '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+			else
+				if [[ "$OSTYPE" == "darwin"* ]]
+				then
+					sed -i '' '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+				fi
+			fi
+
 
 			cd ..
 
@@ -424,7 +484,15 @@ _importComponentInPage()
 
 			ls
 
-			sed -i '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+			if [[ "$OSTYPE" == "linux-gnu"* ]]
+			then
+				sed -i '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+			else
+				if [[ "$OSTYPE" == "darwin"* ]]
+				then
+					sed -i '' '1 a import '${component_name}' from "../../components/'${component_name}'/'${component_name}'";' ../pages/${page_name}/${page_name}.js
+				fi
+			fi
 
 			cd ..
 
@@ -490,7 +558,16 @@ _makeAction()
 	
 	cp ~/.reactComponentSample/reactComponentSample/sample.actions.js ${action_file_name}'.actions.js'
 
-	sed -i 's/sample/'${action_file_name}'/' ${action_file_name}'.actions.js'
+	if [[ "$OSTYPE" == "linux-gnu"* ]]
+	then
+		 sed -i 's/sample/'${action_file_name}'/' ${action_file_name}'.actions.js'
+	else
+		if [[ "$OSTYPE" == "darwin"* ]]
+		then
+			sed -i '' 's/sample/'${action_file_name}'/' ${action_file_name}'.actions.js'
+		fi
+	fi
+
 
 	echo "--------------------------------"
 	echo "Actions File generated successfully"
