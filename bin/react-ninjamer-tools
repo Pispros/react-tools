@@ -58,14 +58,14 @@ _initTools()
 		mkdir pages
 	fi
 
-	_testIfFileExistInInit "services"
+	# _testIfFileExistInInit "services"
 
-	result="$?"
+	# result="$?"
 
-	if [[ $result == 0 ]] 
-	then
-		mkdir services
-	fi
+	# if [[ $result == 0 ]] 
+	# then
+	# 	mkdir services
+	# fi
 
 	_testIfFileExistInInit "constants"
 
@@ -366,11 +366,11 @@ _makePage()
 
 	if [[ "$OSTYPE" == "linux-gnu"* ]]
 	then
-		sed -i '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+		sed -i '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'"' App.js # import new component in app.js
 	else
 		if [[ "$OSTYPE" == "darwin"* ]]
 		then
-			sed -i '' '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'";' App.js # import new component in app.js
+			sed -i '' '1 a import '${page_name}' from "./pages/'${page_name}'/'${page_name}'"' App.js # import new component in app.js
 		fi
 	fi
 
