@@ -177,26 +177,13 @@ _makeComponent()
 	cd $component_name
 
 	echo
-	echo "Do you want to import it in a page ? [Y]es or [N]o"
-	echo
-	read response
-
-	if [[ $response == 'Y' ]] 
-	then
-		echo 
-		echo 'Page name ?'
-		echo
-		read page_name
-		_importComponentInPageF "$component_name" "$page_name"
-	fi
-
-	echo
 	echo "Do you want to connect to the store (redux) ? [Y]es or [N]o"
 	echo
-	read response
+	read responseR
 
-	if [[ $response == 'Y' ]] 
+	if [[ $responseR == 'Y' ]] 
 	then
+		echo "Response Yeah"
 		cp ~/.reactComponentSample/reactComponentSample/sample.connected.js ${component_name}'.js'
 
 		cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
@@ -236,6 +223,21 @@ _makeComponent()
 			fi
 		fi
 
+	fi
+
+
+	echo
+	echo "Do you want to import it in a page ? [Y]es or [N]o"
+	echo
+	read response
+
+	if [[ $response == 'Y' ]] 
+	then
+		echo 
+		echo 'Page name ?'
+		echo
+		read page_name
+		_importComponentInPageF "$component_name" "$page_name"
 	fi
 
 	echo "--------------------------------"
