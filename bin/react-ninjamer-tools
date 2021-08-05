@@ -33,6 +33,7 @@ _showOptions()
 	echo
 	echo "-i ----------> import component in a page.[... -i component_name page_name]" 
 	echo
+	echo "Note: for speed & fast developement while using redux, please give same name to {constant, action & reducer} file"
 }
 
 _initTools()
@@ -183,7 +184,6 @@ _makeComponent()
 
 	if [[ $responseR == 'Y' ]] 
 	then
-		echo "Response Yeah"
 		cp ~/.reactComponentSample/reactComponentSample/sample.connected.js ${component_name}'.js'
 
 		cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
@@ -583,8 +583,6 @@ _generateAction()
 {
 	action_file_name="$1"
 
-	cd src/actions
-
 	if [[ -z $action_file_name ]] 
 		then
 			echo 
@@ -607,6 +605,9 @@ _generateAction()
 					 	cd src/actions
 
 						rm -r ${action_file_name}.actions.js
+
+						cd ..
+						cd ..
 
 						_makeAction "$action_file_name"
 
