@@ -100,9 +100,9 @@ _initTools()
 	sudo npm install --save react-redux
 	sudo npm install --save redux-thunk
 
-	sudo cp -f ~/.reactComponentSample/reactComponentSample/index.js .
+	sudo cp -f ~/.reactComponentSample/index.js .
 
-	sudo cp -f ~/.reactComponentSample/reactComponentSample/reducersIndex.js ./reducers/index.js
+	sudo cp -f ~/.reactComponentSample/reducersIndex.js ./reducers/index.js
 
 	echo "--------------------------------------"
 	echo "react-ninjamer-tools working properly with redux logic"
@@ -184,7 +184,7 @@ _makeComponent()
 
 	if [[ $responseR == 'Y' ]] 
 	then
-		cp ~/.reactComponentSample/reactComponentSample/sample.connected.js ${component_name}'.js'
+		cp ~/.reactComponentSample/sample.connected.js ${component_name}'.js'
 
 		cp ~/.reactComponentSample/sample.scss ${component_name}'.scss'
 
@@ -320,7 +320,7 @@ _makePage()
 
 	if [[ $response == 'Y' ]] 
 	then
-		cp ~/.reactComponentSample/reactComponentSample/sample.connected.js ${page_name}'.js'
+		cp ~/.reactComponentSample/sample.connected.js ${page_name}'.js'
 
 		cp ~/.reactComponentSample/sample.scss ${page_name}'.scss'
 
@@ -558,7 +558,7 @@ _makeAction()
 
 	action_file_name=$1
 	
-	cp ~/.reactComponentSample/reactComponentSample/sample.actions.js ${action_file_name}'.actions.js'
+	cp ~/.reactComponentSample/sample.actions.js ${action_file_name}'.actions.js'
 
 	if [[ "$OSTYPE" == "linux-gnu"* ]]
 	then
