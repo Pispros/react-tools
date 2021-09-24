@@ -664,10 +664,23 @@ _generateReducer()
 
 						rm -r ${reducer_file_name}.reducer.js
 
-						touch "${reducer_file_name}.reducer.js"
+						cp ~/.reactComponentSample/reducerSample.js ${reducer_file_name}'.reducer.js'
 
-						echo "import * as ${reducer_file_name}Types from '../constants/${reducer_file_name}.types.js'" | tee ${reducer_file_name}.reducer.js
+						if [[ "$OSTYPE" == "linux-gnu"* ]]
+						then
+							sed -i 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+							sed -i 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+						else
+							if [[ "$OSTYPE" == "darwin"* ]]
+							then
+								sed -i '' 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+								sed -i '' 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+							fi
+						fi
 
+						echo "*********************************"
+						echo "Reducer file overwritten"
+						echo "*********************************"
 
 						cd ..
 						cd ..
@@ -676,7 +689,7 @@ _generateReducer()
 					 else
 
 					 	echo "*********************************"
-						echo "Reducers file not overwritten"
+						echo "Reducer file not overwritten"
 						echo "*********************************"
 
 						return
@@ -686,9 +699,24 @@ _generateReducer()
 
 			cd src/reducers
 
-			touch "${reducer_file_name}.reducer.js"
+			cp ~/.reactComponentSample/reducerSample.js ${reducer_file_name}'.reducer.js'
 
-			echo "import * as ${reducer_file_name}Types from '../constants/${reducer_file_name}.types.js'" | tee ${reducer_file_name}.reducer.js
+			if [[ "$OSTYPE" == "linux-gnu"* ]]
+			then
+				sed -i 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+				sed -i 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+			else
+				if [[ "$OSTYPE" == "darwin"* ]]
+				then
+					sed -i '' 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+					sed -i '' 's/sample/'${reducer_file_name}'/' ${reducer_file_name}'.reducer.js'
+				fi
+			fi
+
+			echo "*********************************"
+			echo "Reducer file created successfully"
+			echo "*********************************"
+
 
 	fi
 

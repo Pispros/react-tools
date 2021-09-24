@@ -2,7 +2,7 @@
 
 _testIfFileExist()
 {
-	filelist=`ls ~/`
+	filelist=$(ls -la ~/)
 	for filename in $filelist 
 	do
 		if [[ $1 == $filename ]]
@@ -29,7 +29,6 @@ _testIfFileToolExist()
 _testIfFileExist ".reactComponentSample"
 
 result=$?
-
 if [[ $result == 1 ]] 
 then
 	sudo rm -r ~/.reactComponentSample
