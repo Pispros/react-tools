@@ -3,6 +3,7 @@
 <img src="logoReactNinjamerTools_2.jpg"></img>
 
 # sudo bash install.sh ---> Install the tools
+don't worry, no backdoor...
 
 synthax : react-ninjamer-tools <option> <element_name> [<element_name>]"
 	
@@ -26,5 +27,5 @@ Attention : Make sure you are in your root folder and you do not have unsaved co
 
  Note: for speed & fast developement while using redux, please give same name to {constant, action & reducer} file
 
-# Have a good time hacking my ninja
+# Have a good time hacking my ninja !
 
