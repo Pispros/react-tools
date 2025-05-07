@@ -1,4 +1,4 @@
-# REACT NINJAMER TOOLS
+# REACT TOOLS
 
 ## Installation
 ```bash
