@@ -6,7 +6,27 @@ don't worry, no backdoor...
 synthax : react-ninjamer-tools <option> <option> <element_name> [<element_name>]"
 	
 Attention : Make sure you are in your root folder and you do not have unsaved code a file you want to touch with the tool !"
-	
+
+# Example
+
+## First init by creating the right folder structure
+
+```bash
+ react-ninjamer-tools --init
+```bash
+
+## Generate Counter Page
+
+```bash
+ react-ninjamer-tools -c CounterPage
+```bash
+
+## Generate Counter Component
+
+```bash
+ react-ninjamer-tools -c CounterComponent
+```bash
+
  ------------------------------------------- Options : 
 	
 ```bash
