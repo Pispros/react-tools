@@ -1,57 +1,45 @@
-# REACT DEV TOOLS
+# REACT NINJAMER TOOLS
 
-# sudo bash install.sh ---> Install the tools
-don't worry, no backdoor...
-
-synthax : react-ninjamer-tools <option> <option> <element_name> [<element_name>]"
-	
-Attention : Make sure you are in your root folder and you do not have unsaved code a file you want to touch with the tool !"
-
-# Example
-
-## First init by creating the right folder structure
-
+## Installation
 ```bash
- react-ninjamer-tools --init
-```bash
-
-## Generate Counter Page
-
-```bash
- react-ninjamer-tools -c CounterPage
-```bash
-
-## Generate Counter Component
-
-```bash
- react-ninjamer-tools -c CounterComponent
-```bash
-
- ------------------------------------------- Options : 
-	
-```bash
- --init ----------> without any other parameter to init ninjamer-tools in your project ! It comes with react-redux structure"
+sudo bash install.sh
 ```
-```bash
- -c ----------> generate a component."
-```
-```bash	
- -r ----------> generate a reducer."
-```
-```bash	
- -p ----------> generate a page."
-```	
-```bash	
- -const ----------> generate a constant file" 
-```
-```bash	
- -a ----------> generate an actions file 
-```
-```bash
- -i ----------> import component in a page.[... -i component_name page_name]" 
-```bash
-	
- Note: for speed & fast developement while using redux, please give same name to {constant, action & reducer} file
+> Don't worry, no backdoor...
 
-# Have a good time hacking my ninja !
+## Usage
+**Syntax:** `react-ninjamer-tools <option> <element_name> [<element_name>]`
 
+**Attention:** Make sure you are in your root folder and you do not have unsaved code in files you want to modify with this tool!
+
+## Examples
+
+### First init by creating the right folder structure
+```bash
+react-ninjamer-tools --init
+```
+
+### Generate Counter Page
+```bash
+react-ninjamer-tools -p CounterPage
+```
+
+### Generate Counter Component
+```bash
+react-ninjamer-tools -c CounterComponent
+```
+
+## Options
+
+| Option | Description |
+|--------|-------------|
+| `--init` | Initialize ninjamer-tools in your project! It comes with react-redux structure |
+| `-c` | Generate a component |
+| `-r` | Generate a reducer |
+| `-p` | Generate a page |
+| `-const` | Generate a constant file |
+| `-a` | Generate an actions file |
+| `-i` | Import component in a page. Usage: `-i component_name page_name` |
+
+**Note:** For speed & fast development while using Redux, please give the same name to {constant, action & reducer} files.
+
+## Have a good time hacking, my ninja!
