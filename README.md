@@ -1,7 +1,5 @@
 # REACT DEV TOOLS
 
-<img src="logoReactNinjamerTools_2.jpg"></img>
-
 # sudo bash install.sh ---> Install the tools
 don't worry, no backdoor...
 
